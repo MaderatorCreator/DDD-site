@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Платная Поликлиника - Регистрация</title>
+    <style>
+        /* --- ОБЩИЕ СТИЛИ --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- ШАПКА (ЛОГО, НАЗВАНИЕ, ЯЗЫКИ, ВХОД/РЕГИСТРАЦИЯ) --- */
+        .header {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-title-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-block {
+            display: flex;
+            align-items: center;
+            background-color: #e0f0ff;
+            padding: 10px;
+            border-radius: 8px;
+            min-height: 60px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            margin-right: 20px;
+            height: 80px;
+        }
+        .logo img {
+            height: 100%;
+            display: block;
+        }
+
+        .company-title {
+            font-size: 30px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .language-switcher-auth {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .language-switcher span {
+            margin-right: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .language-switcher a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        .language-switcher a:hover {
+            color: #2980b9;
+        }
+
+        .language-switcher .flag {
+            width: 25px;
+            height: auto;
+            margin-right: 5px;
+            vertical-align: middle;
+            border: 1px solid #eee;
+        }
+
+        .auth-buttons {
+            display: flex;
+            margin-left: 20px;
+        }
+
+        .auth-buttons a {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 18px;
+            margin-left: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .auth-buttons a:hover {
+            background-color: #2980b9;
+        }
+
+        .theme-switcher {
+            margin-left: 20px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #555;
+            transition: color 0.3s ease;
+        }
+        .theme-switcher:hover {
+            color: #2980b9;
+        }
+
+        /* --- НАВИГАЦИЯ --- */
+        nav {
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #2980b9;
+        }
+
+        /* --- Стили для ТЕМНОГО РЕЖИМА --- */
+        body.dark-mode {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        .dark-mode .header {
+            background-color: #34495e;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .dark-mode .logo-block {
+            background-color: #4a627b;
+        }
+        .dark-mode .company-title {
+            color: #ecf0f1;
+        }
+        .dark-mode .language-switcher span {
+            color: #bdc3c7;
+        }
+        .dark-mode .language-switcher a {
+            color: #95a5a6;
+        }
+        .dark-mode .language-switcher a:hover {
+            color: #ecf0f1;
+        }
+        .dark-mode .auth-buttons a {
+            background-color: #95a5a6;
+        }
+        .dark-mode .auth-buttons a:hover {
+            background-color: #ecf0f1;
+        }
+        .dark-mode nav {
+            background-color: #34495e;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .dark-mode nav a {
+            color: #95a5a6;
+        }
+        .dark-mode nav a:hover {
+            color: #ecf0f1;
+        }
+
+        /* --- Стили для форм --- */
+        .register-form {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .register-form h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        .register-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .register-form input[type="text"],
+        .register-form input[type="tel"],
+        .register-form input[type="password"],
+        .register-form input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .register-form button {
+            width: 100%;
+            background-color: #2ecc71;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .register-form button:hover {
+            background-color: #27ae60;
+        }
+        .register-form .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .register-form .login-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .register-form .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Стили для ТЕМНОГО РЕЖИМА (Формы) --- */
+        .dark-mode .register-form {
+            background-color: #34495e;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .dark-mode .register-form h2 {
+            color: #ecf0f1;
+        }
+        .dark-mode .register-form label {
+            color: #bdc3c7;
+        }
+        .dark-mode .register-form input[type="text"],
+        .dark-mode .register-form input[type="tel"],
+        .dark-mode .register-form input[type="password"],
+        .dark-mode .register-form input[type="number"] {
+            background-color: #2c3e50;
+            border: 1px solid #555;
+            color: #ecf0f1;
+        }
+        .dark-mode .register-form button {
+            background-color: #27ae60;
+        }
+        .dark-mode .register-form button:hover {
+            background-color: #2ecc71;
+        }
+        .dark-mode .register-form .login-link a {
+            color: #95a5a6;
+        }
+
+        /* --- Адаптивность для мобильных --- */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo-title-container {
+                margin-bottom: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo {
+                margin-right: 0;
+                margin-bottom: 10px;
+                height: 60px;
+            }
+            .logo-block {
+                min-height: auto;
+            }
+            .company-title {
+                font-size: 24px;
+            }
+            .language-switcher-auth {
+                flex-direction: column;
+                align-items: center;
+            }
+            .language-switcher {
+                margin-bottom: 15px;
+            }
+            .auth-buttons {
+                margin-left: 0;
+                justify-content: center;
+                width: 100%;
+            }
+            .auth-buttons a {
+                margin: 0 5px;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-title-container">
+            <div class="logo-block">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Логотип поликлиники">
+                </div>
+                <div class="company-title">Dollars Driven Doctors</div>
+            </div>
+        </div>
+        <div class="language-switcher-auth">
+            <div class="language-switcher">
+                <span>Язык:</span>
+                <a href="register.html">
+                    <img src="images/ru_flag.png" alt="RU" class="flag"> Русский
+                </a>
+                <a href="register_en.html">
+                    <img src="images/en_flag.png" alt="EN" class="flag"> English
+                </a>
+                <a href="register_ua.html">
+                    <img src="images/ua_flag.png" alt="UA" class="flag"> Українська
+                </a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html">Вход</a>
+                <a href="register.html">Регистрация</a>
+            </div>
+            <span class="theme-switcher" title="Сменить тему">🌙</span>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Главная</a>
+        <a href="doctors.html">Врачи</a>
+        <a href="appointments.html">Заявки на прием</a>
+        <a href="credit.html">Кредит</a>
+    </nav>
+
+    <div class="container">
+        <form class="register-form" action="#" method="post">
+            <h2>Регистрация нового пациента</h2>
+
+            <label for="reg-phone">Номер телефона:</label>
+            <input type="tel" id="reg-phone" name="reg-phone" required placeholder="+7 (XXX) XXX-XX-XX">
+
+            <label for="reg-passport-series">Серия паспорта:</label>
+            <input type="text" id="reg-passport-series" name="reg-passport-series" required placeholder="XXXX">
+
+            <label for="reg-passport-number">Номер паспорта:</label>
+            <input type="text" id="reg-passport-number" name="reg-passport-number" required placeholder="XXXXXX">
+
+            <label for="reg-year">Год рождения:</label>
+            <input type="number" id="reg-year" name="reg-year" required placeholder="Например, 1990">
+
+            <button type="submit">Зарегистрироваться</button>
+            <div class="login-link">
+                Уже есть аккаунт? <a href="login.html">Войти</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const themeSwitcher = document.querySelector('.theme-switcher');
+        const body = document.body;
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeSwitcher.textContent = '☀️';
+            themeSwitcher.title = 'Сменить тему на светлую';
+        }
+
+        themeSwitcher.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeSwitcher.textContent = '☀️';
+                themeSwitcher.title = 'Сменить тему на светлую';
+            } else {
+                localStorage.removeItem('theme');
+                themeSwitcher.textContent = '🌙';
+                themeSwitcher.title = 'Сменить тему на темную';
+            }
+        });
+    </script>
+
+</body>
+</html>
