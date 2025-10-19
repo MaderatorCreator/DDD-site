@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Платна Поліклініка - Адмін - Заявки на прийом</title>
+    <style>
+        /* --- ЗАГАЛЬНІ СТИЛІ --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- ШАПКА (ЛОГО, НАЗВА, МОВИ, АДМІН-ПАНЕЛЬ) --- */
+        .header {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-title-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-block {
+            display: flex;
+            align-items: center;
+            background-color: #e0f0ff;
+            padding: 10px;
+            border-radius: 8px;
+            min-height: 60px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            margin-right: 20px;
+            height: 80px;
+        }
+        .logo img {
+            height: 100%;
+            display: block;
+        }
+
+        .company-title {
+            font-size: 30px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .language-switcher-auth {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .language-switcher span {
+            margin-right: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .language-switcher a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        .language-switcher a:hover {
+            color: #2980b9;
+        }
+
+        .language-switcher .flag {
+            width: 25px;
+            height: auto;
+            margin-right: 5px;
+            vertical-align: middle;
+            border: 1px solid #eee;
+        }
+
+        .auth-info {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        .auth-info .admin-panel {
+            font-weight: bold;
+            color: #e74c3c;
+            margin-right: 15px;
+        }
+
+        .theme-switcher {
+            margin-left: 20px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #555;
+            transition: color 0.3s ease;
+        }
+        .theme-switcher:hover {
+            color: #2980b9;
+        }
+
+        /* --- НАВІГАЦІЯ --- */
+        nav {
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #2980b9;
+        }
+
+        /* --- Стилі для ТЕМНОГО РЕЖИМУ --- */
+        body.dark-mode {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        .dark-mode .header {
+            background-color: #34495e;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .dark-mode .logo-block {
+            background-color: #4a627b;
+        }
+        .dark-mode .company-title {
+            color: #ecf0f1;
+        }
+        .dark-mode .language-switcher span {
+            color: #bdc3c7;
+        }
+        .dark-mode .language-switcher a {
+            color: #95a5a6;
+        }
+        .dark-mode .language-switcher a:hover {
+            color: #ecf0f1;
+        }
+        .dark-mode .auth-info .admin-panel {
+            color: #e74c3c;
+        }
+        .dark-mode nav {
+            background-color: #34495e;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .dark-mode nav a {
+            color: #95a5a6;
+        }
+        .dark-mode nav a:hover {
+            color: #ecf0f1;
+        }
+
+        /* --- Стилі для таблиць --- */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #e0e0e0;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* --- Стилі для форм --- */
+        .add-form {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #fdfdfd;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        .add-form h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .add-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .add-form input[type="text"],
+        .add-form input[type="number"],
+        .add-form select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .add-form button {
+            background-color: #2ecc71;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .add-form button:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- Стилі для ТЕМНОГО РЕЖИМУ (Таблиці, Форми) --- */
+        .dark-mode th {
+            background-color: #2980b9;
+        }
+        .dark-mode tr:nth-child(even) {
+            background-color: #3a506b;
+        }
+        .dark-mode tr:hover {
+            background-color: #4a627b;
+        }
+        .dark-mode .add-form {
+            background-color: #34495e;
+            border: 1px solid #4a627b;
+        }
+        .dark-mode .add-form h2 {
+            color: #ecf0f1;
+            border-bottom: 2px solid #95a5a6;
+        }
+        .dark-mode .add-form label {
+            color: #bdc3c7;
+        }
+        .dark-mode .add-form input[type="text"],
+        .dark-mode .add-form input[type="number"],
+        .dark-mode .add-form select {
+            background-color: #2c3e50;
+            border: 1px solid #555;
+            color: #ecf0f1;
+        }
+        .dark-mode .add-form button {
+            background-color: #2ecc71;
+        }
+        .dark-mode .add-form button:hover {
+            background-color: #27ae60;
+        }
+
+        /* --- Адаптивність для мобільних --- */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo-title-container {
+                margin-bottom: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo {
+                margin-right: 0;
+                margin-bottom: 10px;
+                height: 60px;
+            }
+            .logo-block {
+                min-height: auto;
+            }
+            .company-title {
+                font-size: 24px;
+            }
+            .language-switcher-auth {
+                flex-direction: column;
+                align-items: center;
+            }
+            .language-switcher {
+                margin-bottom: 15px;
+            }
+            .auth-info {
+                margin-left: 0;
+                justify-content: center;
+                width: 100%;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-title-container">
+            <div class="logo-block">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Логотип поліклініки">
+                </div>
+                <div class="company-title">Dollars Driven Doctors</div>
+            </div>
+        </div>
+        <div class="language-switcher-auth">
+            <div class="language-switcher">
+                <span>Мова:</span>
+                <a href="appointments.html">
+                    <img src="images/ru_flag.png" alt="RU" class="flag"> Російська
+                </a>
+                <a href="appointments_en.html">
+                    <img src="images/en_flag.png" alt="EN" class="flag"> English
+                </a>
+                <a href="appointments_ua.html">
+                    <img src="images/ua_flag.png" alt="UA" class="flag"> Українська
+                </a>
+            </div>
+            <div class="auth-info">
+                <span class="admin-panel">Панель адміністратора</span>
+            </div>
+            <span class="theme-switcher" title="Змінити тему">🌙</span>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index_ua.html">Головна</a>
+        <a href="doctors_ua.html">Лікарі</a>
+        <a href="patients_ua.html">Пацієнти</a>
+        <a href="appointments_ua.html">Заявки на прийом</a>
+        <a href="credit_ua.html">Кредит</a>
+    </nav>
+
+    <div class="container">
+        <h1>Історія заявок на прийом</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Код звернення</th>
+                    <th>Код лікаря</th>
+                    <th>Код пацієнта</th>
+                    <th>Дата звернення</th>
+                    <th>Діагноз</th>
+                    <th>Вартість лікування</th>
+                    <th>Статус</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>APP001</td>
+                    <td>101</td>
+                    <td>P001</td>
+                    <td>2023-10-26</td>
+                    <td>ГРВІ</td>
+                    <td>1500.00</td>
+                    <td>Очікує підтвердження</td>
+                    <td><a href="#">Редагувати</a> | <a href="#">Підтвердити</a> | <a href="#">Відхилити</a></td>
+                </tr>
+                <tr>
+                    <td>APP002</td>
+                    <td>102</td>
+                    <td>P002</td>
+                    <td>2023-10-27</td>
+                    <td>Гіпертонія (загострення)</td>
+                    <td>3500.50</td>
+                    <td>Підтверджено</td>
+                    <td><a href="#">Редагувати</a> | <a href="#">Відхилити</a></td>
+                </tr>
+                <tr>
+                    <td>APP003</td>
+                    <td>101</td>
+                    <td>P001</td>
+                    <td>2023-11-15</td>
+                    <td>Консультація кардіолога (профілактика)</td>
+                    <td>2000.00</td>
+                    <td>Підтверджено</td>
+                    <td><a href="#">Редагувати</a> | <a href="#">Відхилити</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="add-form">
+            <h2>Додати нове звернення (для адміністратора)</h2>
+            <form action="#" method="post">
+                <label for="appointment-id">Код звернення:</label>
+                <input type="text" id="appointment-id" name="appointment-id" placeholder="Автоматично генерується або вводиться вручну (наприклад, APP004)">
+
+                <label for="appointment-doctor-id">Код лікаря:</label>
+                <input type="text" id="appointment-doctor-id" name="appointment-doctor-id" required placeholder="Наприклад, 101">
+
+                <label for="appointment-patient-id">Код пацієнта:</label>
+                <input type="text" id="appointment-patient-id" name="appointment-patient-id" required placeholder="Наприклад, P001">
+
+                <label for="appointment-date">Дата звернення:</label>
+                <input type="date" id="appointment-date" name="appointment-date" required>
+
+                <label for="appointment-diagnosis">Діагноз:</label>
+                <input type="text" id="appointment-diagnosis" name="appointment-diagnosis" required placeholder="Наприклад, ГРВІ, Забій">
+
+                <label for="appointment-cost">Вартість лікування:</label>
+                <input type="number" id="appointment-cost" name="appointment-cost" step="0.01" required placeholder="Наприклад, 1500.50">
+
+                <label for="appointment-status">Статус:</label>
+                <select id="appointment-status" name="appointment-status" required>
+                    <option value="">-- Виберіть статус --</option>
+                    <option value="Очікує підтвердження">Очікує підтвердження</option>
+                    <option value="Підтверджено">Підтверджено</option>
+                    <option value="Відхилено">Відхилено</option>
+                    <option value="Завершено">Завершено</option>
+                </select>
+
+                <button type="submit">Додати звернення</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const themeSwitcher = document.querySelector('.theme-switcher');
+        const body = document.body;
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeSwitcher.textContent = '☀️';
+            themeSwitcher.title = 'Перемкнути на світлу тему';
+        }
+
+        themeSwitcher.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeSwitcher.textContent = '☀️';
+                themeSwitcher.title = 'Перемкнути на світлу тему';
+            } else {
+                localStorage.removeItem('theme');
+                themeSwitcher.textContent = '🌙';
+                themeSwitcher.title = 'Перемкнути на темну тему';
+            }
+        });
+    </script>
+
+</body>
+</html>
