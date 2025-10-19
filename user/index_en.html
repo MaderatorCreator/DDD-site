@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paid Polyclinic - Home</title>
+    <style>
+        /* --- ОБЩИЕ СТИЛИ --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- ШАПКА (ЛОГО, НАЗВАНИЕ, ЯЗЫКИ, ВХОД/РЕГИСТРАЦИЯ) --- */
+        .header {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-title-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-block {
+            display: flex;
+            align-items: center;
+            background-color: #e0f0ff; /* Цвет фона для лого и названия */
+            padding: 10px; /* Отступ внутри блока */
+            border-radius: 8px; /* Скругление углов */
+            min-height: 60px; /* Минимальная высота, чтобы вместить удвоенный лого */
+            box-sizing: border-box;
+        }
+
+        .logo {
+            margin-right: 20px;
+            height: 80px; /* Удвоенная высота лого */
+        }
+        .logo img {
+            height: 100%;
+            display: block;
+        }
+
+        .company-title {
+            font-size: 30px; /* Увеличенный шрифт */
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center; /* Центрирование текста */
+            flex-grow: 1; /* Позволяет тексту растягиваться */
+        }
+
+        .language-switcher-auth {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap; /* Для переноса на новую строку, если не хватает места */
+            justify-content: flex-end; /* Выравнивание по правому краю */
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* Отступ от кнопок входа/регистрации */
+        }
+
+        .language-switcher span {
+            margin-right: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .language-switcher a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        .language-switcher a:hover {
+            color: #2980b9;
+        }
+
+        .language-switcher .flag {
+            width: 25px; /* Немного увеличенный флаг */
+            height: auto;
+            margin-right: 5px;
+            vertical-align: middle; /* Выравниваем флаг с текстом */
+            border: 1px solid #eee; /* Легкая обводка флага */
+        }
+
+        .auth-buttons {
+            display: flex;
+            margin-left: 20px; /* Отступ от языков */
+        }
+
+        .auth-buttons a {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 18px;
+            margin-left: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .auth-buttons a:hover {
+            background-color: #2980b9;
+        }
+
+        .theme-switcher {
+            margin-left: 20px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #555;
+            transition: color 0.3s ease;
+        }
+        .theme-switcher:hover {
+            color: #2980b9;
+        }
+
+        /* --- НАВИГАЦИЯ --- */
+        nav {
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #2980b9;
+        }
+
+        /* --- КАРТОЧКИ КОНТЕНТА --- */
+        .card {
+            background-color: #ffffff;
+            padding: 30px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .card p, .card ul {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        .card ul li {
+            margin-bottom: 10px;
+        }
+
+        /* --- Стили для ТЕМНОГО РЕЖИМА --- */
+        body.dark-mode {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        .dark-mode .header {
+            background-color: #34495e;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .dark-mode .logo-block {
+            background-color: #4a627b;
+        }
+        .dark-mode .company-title {
+            color: #ecf0f1;
+        }
+        .dark-mode .language-switcher span {
+            color: #bdc3c7;
+        }
+        .dark-mode .language-switcher a {
+            color: #95a5a6;
+        }
+        .dark-mode .language-switcher a:hover {
+            color: #ecf0f1;
+        }
+        .dark-mode .auth-buttons a {
+            background-color: #95a5a6;
+        }
+        .dark-mode .auth-buttons a:hover {
+            background-color: #ecf0f1;
+        }
+        .dark-mode nav {
+            background-color: #34495e;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .dark-mode nav a {
+            color: #95a5a6;
+        }
+        .dark-mode nav a:hover {
+            color: #ecf0f1;
+        }
+        .dark-mode .card {
+            background-color: #34495e;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .dark-mode .card h3 {
+            color: #ecf0f1;
+            border-bottom: 2px solid #95a5a6;
+        }
+        .dark-mode .theme-switcher {
+            color: #bdc3c7;
+        }
+        .dark-mode .theme-switcher:hover {
+            color: #ecf0f1;
+        }
+
+        /* --- Адаптивность для мобильных --- */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo-title-container {
+                margin-bottom: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo {
+                margin-right: 0;
+                margin-bottom: 10px;
+                height: 60px; /* Уменьшаем лого на мобильных */
+            }
+            .logo-block {
+                min-height: auto;
+            }
+            .company-title {
+                font-size: 24px;
+            }
+            .language-switcher-auth {
+                flex-direction: column;
+                align-items: center;
+            }
+            .language-switcher {
+                margin-bottom: 15px;
+            }
+            .auth-buttons {
+                margin-left: 0;
+                justify-content: center;
+                width: 100%;
+            }
+            .auth-buttons a {
+                margin: 0 5px;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-title-container">
+            <div class="logo-block">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Clinic Logo">
+                </div>
+                <div class="company-title">Dollars Driven Doctors</div>
+            </div>
+        </div>
+        <div class="language-switcher-auth">
+            <div class="language-switcher">
+                <span>Language:</span>
+                <a href="index.html">
+                    <img src="images/ru_flag.png" alt="RU" class="flag"> Русский
+                </a>
+                <a href="index_en.html">
+                    <img src="images/en_flag.png" alt="EN" class="flag"> English
+                </a>
+                <a href="index_ua.html">
+                    <img src="images/ua_flag.png" alt="UA" class="flag"> Українська
+                </a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login_en.html">Login</a>
+                <a href="register_en.html">Register</a>
+            </div>
+            <span class="theme-switcher" title="Switch Theme">🌙</span>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index_en.html">Home</a>
+        <a href="doctors_en.html">Doctors</a>
+        <a href="appointments_en.html">Appointments</a>
+        <a href="credit_en.html">Credit</a>
+    </nav>
+
+    <div class="container">
+        <h1>Welcome to the paid polyclinic Dollars Driven Doctors</h1>
+        <p>Our polyclinic provides quality paid medical services to the public. We value your health and strive to ensure comfortable and effective treatment.</p>
+
+        <div class="card">
+            <h3>Our Services</h3>
+            <p>We offer a wide range of medical consultations and procedures from highly qualified specialists.</p>
+        </div>
+
+        <div class="card">
+            <h3>Navigation</h3>
+            <p>Use the links at the top of the page to navigate to sections:</p>
+            <ul>
+                <li><strong>Doctors:</strong> Information about our specialists.</li>
+                <li><strong>Appointments:</strong> History of your appointment requests.</li>
+                <li><strong>Credit:</strong> Applying for credit for medical services.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const themeSwitcher = document.querySelector('.theme-switcher');
+        const body = document.body;
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeSwitcher.textContent = '☀️';
+            themeSwitcher.title = 'Switch to light theme';
+        }
+
+        themeSwitcher.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeSwitcher.textContent = '☀️';
+                themeSwitcher.title = 'Switch to light theme';
+            } else {
+                localStorage.removeItem('theme');
+                themeSwitcher.textContent = '🌙';
+                themeSwitcher.title = 'Switch to dark theme';
+            }
+        });
+    </script>
+
+</body>
+</html>

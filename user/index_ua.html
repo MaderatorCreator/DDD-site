@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Платна Поліклініка - Головна</title>
+    <style>
+        /* --- ЗАГАЛЬНІ СТИЛІ --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- ШАПКА (ЛОГО, НАЗВА, МОВИ, ВХІД/РЕЄСТРАЦІЯ) --- */
+        .header {
+            background-color: #ffffff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-title-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-block {
+            display: flex;
+            align-items: center;
+            background-color: #e0f0ff; /* Колір фону для лого та назви */
+            padding: 10px; /* Відступ усередині блоку */
+            border-radius: 8px; /* Заокруглення кутів */
+            min-height: 60px; /* Мінімальна висота, щоб вмістити подвоєне лого */
+            box-sizing: border-box;
+        }
+
+        .logo {
+            margin-right: 20px;
+            height: 80px; /* Подвоєна висота лого */
+        }
+        .logo img {
+            height: 100%;
+            display: block;
+        }
+
+        .company-title {
+            font-size: 30px; /* Збільшений шрифт */
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center; /* Центрування тексту */
+            flex-grow: 1; /* Дозволяє тексту розтягуватися */
+        }
+
+        .language-switcher-auth {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap; /* Для перенесення на новий рядок, якщо бракує місця */
+            justify-content: flex-end; /* Вирівнювання по правому краю */
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px; /* Відступ від кнопок входу/реєстрації */
+        }
+
+        .language-switcher span {
+            margin-right: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .language-switcher a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+        .language-switcher a:hover {
+            color: #2980b9;
+        }
+
+        .language-switcher .flag {
+            width: 25px; /* Трохи збільшений прапорець */
+            height: auto;
+            margin-right: 5px;
+            vertical-align: middle; /* Вирівнювання прапорця з текстом */
+            border: 1px solid #eee; /* Легка обводка прапорця */
+        }
+
+        .auth-buttons {
+            display: flex;
+            margin-left: 20px; /* Відступ від мов */
+        }
+
+        .auth-buttons a {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 18px;
+            margin-left: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .auth-buttons a:hover {
+            background-color: #2980b9;
+        }
+
+        .theme-switcher {
+            margin-left: 20px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #555;
+            transition: color 0.3s ease;
+        }
+        .theme-switcher:hover {
+            color: #2980b9;
+        }
+
+        /* --- НАВІГАЦІЯ --- */
+        nav {
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            margin: 0 15px; /* Відстань між посиланнями */
+            text-decoration: none;
+            color: #3498db;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #2980b9;
+        }
+
+        /* --- КАРТКИ КОНТЕНТУ --- */
+        .card {
+            background-color: #ffffff;
+            padding: 30px;
+            margin-top: 20px; /* Відступ зверху */
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .card p, .card ul {
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        .card ul li {
+            margin-bottom: 10px;
+        }
+
+        /* --- Стилі для ТЕМНОГО РЕЖИМУ --- */
+        body.dark-mode {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+        }
+        .dark-mode .header {
+            background-color: #34495e;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        .dark-mode .logo-block {
+            background-color: #4a627b;
+        }
+        .dark-mode .company-title {
+            color: #ecf0f1;
+        }
+        .dark-mode .language-switcher span {
+            color: #bdc3c7;
+        }
+        .dark-mode .language-switcher a {
+            color: #95a5a6;
+        }
+        .dark-mode .language-switcher a:hover {
+            color: #ecf0f1;
+        }
+        .dark-mode .auth-buttons a {
+            background-color: #95a5a6;
+        }
+        .dark-mode .auth-buttons a:hover {
+            background-color: #ecf0f1;
+        }
+        .dark-mode nav {
+            background-color: #34495e;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .dark-mode nav a {
+            color: #95a5a6;
+        }
+        .dark-mode nav a:hover {
+            color: #ecf0f1;
+        }
+        .dark-mode .card {
+            background-color: #34495e;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .dark-mode .card h3 {
+            color: #ecf0f1;
+            border-bottom: 2px solid #95a5a6;
+        }
+        .dark-mode .theme-switcher {
+            color: #bdc3c7;
+        }
+        .dark-mode .theme-switcher:hover {
+            color: #ecf0f1;
+        }
+
+        /* --- Адаптивність для мобільних --- */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo-title-container {
+                margin-bottom: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo {
+                margin-right: 0;
+                margin-bottom: 10px;
+                height: 60px; /* Зменшуємо лого на мобільних */
+            }
+            .logo-block {
+                min-height: auto;
+            }
+            .company-title {
+                font-size: 24px;
+            }
+            .language-switcher-auth {
+                flex-direction: column;
+                align-items: center;
+            }
+            .language-switcher {
+                margin-bottom: 15px;
+            }
+            .auth-buttons {
+                margin-left: 0;
+                justify-content: center;
+                width: 100%;
+            }
+            .auth-buttons a {
+                margin: 0 5px;
+            }
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav a {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo-title-container">
+            <div class="logo-block">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Логотип поліклініки">
+                </div>
+                <div class="company-title">Dollars Driven Doctors</div>
+            </div>
+        </div>
+        <div class="language-switcher-auth">
+            <div class="language-switcher">
+                <span>Мова:</span>
+                <a href="index.html">
+                    <img src="images/ru_flag.png" alt="RU" class="flag"> Русский
+                </a>
+                <a href="index_en.html">
+                    <img src="images/en_flag.png" alt="EN" class="flag"> English
+                </a>
+                <a href="index_ua.html">
+                    <img src="images/ua_flag.png" alt="UA" class="flag"> Українська
+                </a>
+            </div>
+            <div class="auth-buttons">
+                <a href="login.html">Вхід</a>
+                <a href="register.html">Реєстрація</a>
+            </div>
+            <span class="theme-switcher" title="Змінити тему">🌙</span>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index_ua.html">Головна</a>
+        <a href="doctors_ua.html">Лікарі</a>
+        <a href="appointments_ua.html">Заявки на прийом</a>
+        <a href="credit_ua.html">Кредит</a>
+    </nav>
+
+    <div class="container">
+        <h1>Ласкаво просимо до платної поліклініки Dollars Driven Doctors</h1>
+        <p>Наша поліклініка надає якісні платні медичні послуги населенню. Ми цінуємо ваше здоров'я та прагнемо забезпечити комфортне та ефективне лікування.</p>
+
+        <div class="card">
+            <h3>Наші послуги</h3>
+            <p>Ми пропонуємо широкий спектр медичних консультацій та процедур від висококваліфікованих спеціалістів.</p>
+        </div>
+
+        <div class="card">
+            <h3>Навігація</h3>
+            <p>Використовуйте посилання у верхній частині сторінки для переходу до розділів:</p>
+            <ul>
+                <li><strong>Лікарі:</strong> Інформація про наших спеціалістів.</li>
+                <li><strong>Заявки на прийом:</strong> Ваша історія звернень.</li>
+                <li><strong>Кредит:</strong> Оформлення кредиту на медичні послуги.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const themeSwitcher = document.querySelector('.theme-switcher');
+        const body = document.body;
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            themeSwitcher.textContent = '☀️';
+            themeSwitcher.title = 'Перемкнути на світлу тему';
+        }
+
+        themeSwitcher.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                themeSwitcher.textContent = '☀️';
+                themeSwitcher.title = 'Перемкнути на світлу тему';
+            } else {
+                localStorage.removeItem('theme');
+                themeSwitcher.textContent = '🌙';
+                themeSwitcher.title = 'Перемкнути на темну тему';
+            }
+        });
+    </script>
+
+</body>
+</html>
