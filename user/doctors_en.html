@@ -346,6 +346,68 @@
                 margin: 5px 0;
             }
         }
+        /* --- CSS ДЛЯ ВЫПАДАЮЩЕГО МЕНЮ (DROPDOWN) --- */
+
+        .dropdown {
+            position: relative; /* Контейнер должен быть позиционирован относительно */
+            display: inline-block;
+            margin: 0 15px; /* Чтобы соответствовать остальным ссылкам навигации */
+        }
+
+        .dropbtn {
+            background-color: transparent;
+            color: #3498db;
+            padding: 10px 0; /* Паддинг должен соответствовать высоте других ссылок nav a */
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            /* Важно: чтобы не было визуального отличия от других ссылок */
+        }
+
+        .dropdown-content {
+            display: none; /* По умолчанию меню скрыто */
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 180px; /* Ширина выпадающего блока */
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 100; /* Убедимся, что меню поверх всего */
+            border-radius: 5px;
+            flex-direction: column; /* Элементы идут вертикально */
+            padding: 5px 0;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            margin: 0; /* Убираем margin, который был у обычных ссылок nav a */
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        /* Показываем меню при наведении на контейнер .dropdown */
+        .dropdown:hover .dropdown-content {
+            display: flex; /* Используем flex для вертикального выравнивания ссылок в меню */
+        }
+
+        /* Стили для ТЕМНОГО РЕЖИМА */
+        .dark-mode .dropdown-content {
+            background-color: #34495e;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+        }
+
+        .dark-mode .dropdown-content a {
+            color: #bdc3c7;
+        }
+
+        .dark-mode .dropdown-content a:hover {
+            background-color: #4a627b;
+            color: #ecf0f1;
+        }
     </style>
 </head>
 <body>
@@ -382,7 +444,19 @@
 
     <nav>
         <a href="index_en.html">Home</a>
-        <a href="doctors_en.html">Doctors</a>
+    
+    <div class="dropdown">
+        <a href="doctors_en.html" class="dropbtn">Doctors</a>
+        <div class="dropdown-content">
+            <a href="#">Therapist</a>
+            <a href="#">Cardiologist</a>
+            <a href="#">Surgeon</a>
+            <a href="#">Pediatrician</a>
+            <a href="#">Psychologist</a>
+            <a href="doctors_en.html">All Specialists</a>
+        </div>
+    </div>
+
         <a href="appointments_en.html">Appointments</a>
         <a href="credit_en.html">Credit</a>
     </nav>
