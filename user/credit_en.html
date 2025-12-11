@@ -621,7 +621,7 @@ function calculateLoan() {
     // Расчет переплаты
     const interestPaid = totalPayment - loanAmount;
 
-    // Вывод результатов
+    // Вывод результатов в долларах
     document.getElementById('monthly-payment').textContent = monthlyPayment.toFixed(2) + ' $';
     document.getElementById('total-payment').textContent = totalPayment.toFixed(2) + ' $';
     document.getElementById('interest-paid').textContent = interestPaid.toFixed(2) + ' $';
@@ -629,4 +629,5 @@ function calculateLoan() {
 </script>
 
 </body>
+
 </html>
