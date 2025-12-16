@@ -119,9 +119,7 @@
             border-radius: 5px;
             font-weight: bold;
             transition: background-color 0.3s ease;
-        }
-        .auth-buttons a:hover {
-            background-color: #2980b9;
+            border: 1px solid transparent;
         }
 
         .theme-switcher {
@@ -463,6 +461,26 @@
         .dark-mode .credit-calculator h2 {
             color: #ecf0f1; /* Установите светлый цвет для заголовка */
         }
+                        /* --- ИНВЕРСИЯ КНОПОК ВХОД/РЕГИСТРАЦИЯ ПРИ HOVER --- */
+        .auth-buttons a:hover {
+            background-color: white; /* Фон становится белым */
+            color: #3498db; /* Текст становится синим */
+            border: 1px solid #3498db; /* Добавим тонкую синюю рамку, чтобы кнопка не "схлопывалась" */
+        }
+
+        .dark-mode .auth-buttons a {
+            /* Базовые стили в темной теме */
+            background-color: #95a5a6; /* Светло-серый фон */
+            color: #34495e; /* Темный текст */
+            border: 1px solid #95a5a6;
+        }
+
+        .dark-mode .auth-buttons a:hover {
+            background-color: #34495e; /* Фон становится темным, как основной фон */
+            color: #ecf0f1; /* Текст становится ярко-белым */
+            border: 1px solid #ecf0f1; /* Светлая рамка */
+        }
+
 
     </style>
 </head>
@@ -621,7 +639,7 @@ function calculateLoan() {
     // Расчет переплаты
     const interestPaid = totalPayment - loanAmount;
 
-    // Вывод результатов в долларах
+    // Вывод результатов
     document.getElementById('monthly-payment').textContent = monthlyPayment.toFixed(2) + ' $';
     document.getElementById('total-payment').textContent = totalPayment.toFixed(2) + ' $';
     document.getElementById('interest-paid').textContent = interestPaid.toFixed(2) + ' $';
@@ -629,5 +647,4 @@ function calculateLoan() {
 </script>
 
 </body>
-
 </html>
